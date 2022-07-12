@@ -1,4 +1,8 @@
-﻿![](https://javascript30.com/images/JS3-social-share.png)
+﻿My solutions for the Javascript 30 course. My method was to watch the intro of the video to understand the project, write a solution in main.js using the starter HTML file, push the solution to Github, and then watch the video to see if there was a better way to do the project. If I learned something, I rewrote my solution using what I learned and pushed a second time. 
+---
+
+
+![](https://javascript30.com/images/JS3-social-share.png)
 
 # JavaScript30
 
