@@ -1,11 +1,10 @@
-const root = document.querySelector(":root");
-const spacing = document.querySelector('#spacing');
-const blur = document.querySelector('#blur');
-const color = document.querySelector('#base');
+// rewriting to foreach (as per video) keeps code cleaner
 
-spacing.addEventListener('input', () =>
-    root.style.setProperty('--spacing', `${spacing.value}px`));
-blur.addEventListener('input', () =>
-    root.style.setProperty('--blur', `${blur.value}px`));
-color.addEventListener('input', () =>
-    root.style.setProperty('--color', `${color.value}`));
+inputs = document.querySelectorAll(".controls input");
+
+function changeValue() {
+    const suffix = this.dataset['sizing'] || "";
+    document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix)
+}
+
+inputs.forEach(input => input.addEventListener('input', changeValue));
