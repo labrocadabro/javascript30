@@ -28,7 +28,9 @@ const people = [
 
 // Array.prototype.filter()
 // 1. Filter the list of inventors for those who were born in the 1500's
-console.log(inventors.filter(v => v['year'] >= 1500 && v['year'] < 1600))
+
+// learned console.table()!
+console.table(inventors.filter(v => v['year'] >= 1500 && v['year'] < 1600))
 
 // Array.prototype.map()
 // 2. Give us an array of the inventors first and last names
@@ -42,51 +44,34 @@ console.log(inventors.map(v => `${v['first']} ${v['last']}`))
 // 3. Sort the inventors by birthdate, oldest to youngest
 
 const birthSort = [...inventors]
-console.log(birthSort.sort((a, b) => a['year'] - b['year']))
+console.table(birthSort.sort((a, b) => a['year'] - b['year']))
 
 // Array.prototype.reduce()
 // 4. How many years did all the inventors live all together?
 
-console.log(Number(inventors.reduce((total, v) => total + (v['passed'] - v['year']), 0)))
+// casting to Number was not necessary
+console.log(inventors.reduce((total, v) => total + (v['passed'] - v['year']), 0))
 
 // 5. Sort the inventors by years lived
 
 //least to most
 const leastYears = [...inventors]
-console.log(leastYears.sort((a, b) => (a['passed'] - a['year']) - (b['passed'] - b['year'])))
+console.table(leastYears.sort((a, b) => (a['passed'] - a['year']) - (b['passed'] - b['year'])))
 
 // most to least
 const mostYears = [...inventors]
-console.log(mostYears.sort((a, b) => (b['passed'] - b['year']) - (a['passed'] - a['year'])));
+console.table(mostYears.sort((a, b) => (b['passed'] - b['year']) - (a['passed'] - a['year'])));
 
 // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
 // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
-// I did not write this
-fetch('./wiki.html')
-    .then(function (response) {
-        switch (response.status) {
-            case 200:
-                return response.text();
-            case 404:
-                throw response;
-        }
-    })
-    .then(function (template) {
-        // I did write this part
-        const holder = document.createElement('div');
-        holder.innerHTML = template;
-        const boulevards = holder.querySelectorAll(".mw-category-group a");
-        let names = [];
-        boulevards.forEach(v => names.push(v.title));
-        // this line is the actual filtering
-        console.log(names.filter(v => v.includes("de")));
+// realized I could just paste the html from wikipedia into index-START.html
+const boulevards = document.querySelectorAll(".mw-category-group a");
 
-
-    })
-    .catch(function (response) {
-        console.log(response.statusText);
-    });
+//changed forEach to map and chained the functions
+console.log([...boulevards]
+    .map(v => v.title)
+    .filter(v => v.includes("de")));
 
 // 7. sort Exercise
 // Sort the people alphabetically by last name
