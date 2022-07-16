@@ -1,19 +1,15 @@
 const panels = document.querySelectorAll('.panel');
 for (let panel of panels) {
     panel.addEventListener('click', expand);
+    // wes used a transitionend event to control when the top & bottom text came in but I prefer my css transition-delay
 }
 
 function expand() {
     for (let panel of panels) {
         if (panel !== this) {
-            panel.style.flex = "1";
             panel.classList.remove('open');
-            panel.querySelector('p:first-of-type').style.top = "";
-            panel.querySelector('p:last-of-type').style.bottom = "";
         }
     }
-    this.style.flex = "4";
-    this.classList.add('open');
-    this.querySelector('p:first-of-type').style.top = "20px";
-    this.querySelector('p:last-of-type').style.bottom = "20px";
+    // changed to toggle so you can click a second time to close the flex
+    this.classList.toggle('open');
 }
