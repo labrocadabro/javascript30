@@ -1,5 +1,7 @@
 // ## Array Cardio Day 2
 
+// This one was pretty simple, nothing to change after watching the video
+
 const people = [
     { name: 'Wes', year: 1988 },
     { name: 'Kait', year: 1986 },
