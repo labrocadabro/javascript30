@@ -5,41 +5,26 @@ function setPosition(e) {
     pos.x = e.clientX;
     pos.y = e.clientY;
 }
-
 function draw(e) {
     // mouse left button must be pressed
     if (e.buttons !== 1) return;
 
-    ctx.beginPath(); // begin
+    // wasn't in the code I copied
+    ctx.lineJoin = 'round';
 
-    ctx.lineWidth = nextWidth.next().value;;
+    // Wes used a different method where the thickness decreases and increases in a loop but I like my geneerator
+    ctx.lineWidth = nextWidth.next().value;
     ctx.lineCap = 'round';
-    ctx.strokeStyle = nextColor.next().value;
+    // learned about hsl which made the generator unnecessary
+    ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
 
+    ctx.beginPath(); // begin
     ctx.moveTo(pos.x, pos.y); // from
     setPosition(e);
     ctx.lineTo(pos.x, pos.y); // to
 
     ctx.stroke(); // draw it!
-}
-
-function* getColor(currentColor) {
-    const rainbow = [
-        "#9400D3",
-        "#4B0082",
-        "#0000FF",
-        "#00FF00",
-        "#FFFF00",
-        "#FF7F00",
-        "#FF0000",
-    ];
-    while (true) {
-        yield rainbow[currentColor];
-        currentColor++;
-        if (currentColor === rainbow.length) {
-            currentColor = 0;
-        }
-    }
+    hue++;
 }
 
 function* getWidth(currentWidth) {
@@ -50,14 +35,21 @@ function* getWidth(currentWidth) {
 }
 
 function resetWidth() {
-    nextWidth = getWidth(30);
+    nextWidth = getWidth(100);
 }
 
 const c = document.querySelector("#draw");
 const ctx = c.getContext("2d");
+// resizing to fit whole screen
+c.height = window.innerHeight;
+c.width = window.innerWidth;
+
 let pos = { x: 0, y: 0 };
-const nextColor = getColor(0);
-let nextWidth = getWidth(30);
+// learned about hsl which made the generator unnecessary
+let hue = 0;
+let nextWidth = getWidth(100);
+
+
 
 document.addEventListener('mousemove', draw);
 document.addEventListener('mousedown', setPosition);
